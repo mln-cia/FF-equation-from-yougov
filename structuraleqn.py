@@ -372,55 +372,57 @@ if user and pwd:
                 index=None,
             )
 
-            dict_rename_cols = {
-                key: val.split(":")[-1].split("-")[0].strip()
-                for key, val in meta.column_names_to_labels.items()
-            }
-            df_findability = df[
-                [
-                    col
-                    for col in df.columns
-                    if questions_findability.split(" ", 1)[0] + "r" in col
-                ]
-            ].rename(columns=dict_rename_cols)
+            if question_currentcustomer and questions_findability:
 
-            df_currentcustomer = df[
-                [
-                    col
-                    for col in df.columns
-                    if question_currentcustomer.split(" ", 1)[0] + "r" in col
-                ]
-            ].rename(columns=dict_rename_cols)
-
-            final_df = pd.concat(
-                 [df_findability.sum()/df_findability.count(), df_currentcustomer.sum()/df_currentcustomer.count()], axis=1
-            )
-            final_df.columns = ['Findability', 'CurrentCustomer']
-
-            X_fit = final_df[["Findability"]]
-            y = final_df["CurrentCustomer"]
-
-            X_fit = sm.add_constant(X_fit)
-            model = sm.OLS(y, X_fit).fit()
-            predictions = model.predict(X_fit)
-
-            coefficients.append(
-                {
-                    "Dimensione": 'Findability',
-                    "Coefficiente": model.params[1],
-                    "R^2": model.rsquared,
+                dict_rename_cols = {
+                    key: val.split(":")[-1].split("-")[0].strip()
+                    for key, val in meta.column_names_to_labels.items()
                 }
-            )
+                df_findability = df[
+                    [
+                        col
+                        for col in df.columns
+                        if questions_findability.split(" ", 1)[0] + "r" in col
+                    ]
+                ].rename(columns=dict_rename_cols)
 
-            # plt.tight_layout()
-            # st.pyplot(fig)
+                df_currentcustomer = df[
+                    [
+                        col
+                        for col in df.columns
+                        if question_currentcustomer.split(" ", 1)[0] + "r" in col
+                    ]
+                ].rename(columns=dict_rename_cols)
 
-            st.write('## Final Table')
-            # Crea una tabella con i coefficienti di regressione
-            coef_df = pd.DataFrame(coefficients)
-            coef_df["F %Importance"] = (
-                coef_df.Coefficiente / coef_df.Coefficiente.sum() * 100
-            )
-            st.write(coef_df)
+                final_df = pd.concat(
+                    [df_findability.sum()/df_findability.count(), df_currentcustomer.sum()/df_currentcustomer.count()], axis=1
+                )
+                final_df.columns = ['Findability', 'CurrentCustomer']
+
+                X_fit = final_df[["Findability"]]
+                y = final_df["CurrentCustomer"]
+
+                X_fit = sm.add_constant(X_fit)
+                model = sm.OLS(y, X_fit).fit()
+                predictions = model.predict(X_fit)
+
+                coefficients.append(
+                    {
+                        "Dimensione": 'Findability',
+                        "Coefficiente": model.params[1],
+                        "R^2": model.rsquared,
+                    }
+                )
+
+                # plt.tight_layout()
+                # st.pyplot(fig)
+
+                st.write('## Final Table')
+                # Crea una tabella con i coefficienti di regressione
+                coef_df = pd.DataFrame(coefficients)
+                coef_df["F %Importance"] = (
+                    coef_df.Coefficiente / coef_df.Coefficiente.sum() * 100
+                )
+                st.write(coef_df)
 
 
