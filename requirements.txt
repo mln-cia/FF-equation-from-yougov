@@ -6,6 +6,5 @@ seaborn
 matplotlib
 requests
 statsmodels
-json
 tempfile
 scikit-learn
