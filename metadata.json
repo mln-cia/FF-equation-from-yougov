@@ -1,0 +1,69 @@
+{
+    "data": {
+      "id": "ppp",
+      "queries": [
+        {
+          "entity": {
+            "region": "",
+            "sector_id": "",
+            "brand_id": ""
+          },
+          "filters": [],
+          "metrics_score_types": {
+            "buzz": "positives",
+            "consider": "positives",
+            "wom": "positives",
+            "impression": "positives",
+            "likelybuy": "positives",
+            "satisfaction": "positives",
+            "adaware": "positives",
+            "recommend": "positives",
+            "current_own": "positives"
+          },
+          "resample": {
+            "size": 1,
+            "type": "calendar_day"
+          },
+          "moving_average": 14,
+          "scoring": "aware",
+          "period": {
+            "start_date": {
+              "date": ""
+            },
+            "end_date": {
+              "date": ""
+            }
+          }
+        },
+        {
+          "entity": {
+            "region": "",
+            "sector_id": "",
+            "brand_id": ""
+          },
+          "filters": [],
+          "metrics_score_types": {
+            "aided": "positives"
+          },
+          "resample": {
+            "size": 1,
+            "type": "calendar_day"
+          },
+          "scoring": "total",
+          "moving_average": 14,
+          "period": {
+            "start_date": {
+              "date": ""
+            },
+            "end_date": {
+              "date": ""
+            }
+          }
+        }
+      ]
+    },
+    "meta": {
+      "version": "v1"
+    }
+  }
+  
