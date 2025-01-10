@@ -1,0 +1,11 @@
+pandas
+numpy
+streamlit
+pyreadstat
+seaborn
+matplotlib
+requests
+statsmodels
+json
+tempfile
+scikit-learn
